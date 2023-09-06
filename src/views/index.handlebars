@@ -1,0 +1,23 @@
+{{! debe contener una lista de todos los productos agregados hasta el momento }}
+<div class="contenedor-formularios">
+  <div>
+  <h3> {{name}}, tu lista de productos</h3>
+</div>
+
+{{#if products.length}}
+  {{#each products}}
+    <div class="items">
+      <p>{{title}}</p>
+      <p>{{price}} </p>
+    </div>
+  {{/each}}
+{{else}}
+  <p> No se encontraron productos🙄</p>
+{{/if}}
+
+<button onClick=()>Agregar al carrito</button>
+</div>
+
+<script src="/socket.io/socket.io.js"></script>
+
+<script src="js/index.js" charset="utf-8"></script>

@@ -1,0 +1,71 @@
+import CartDaoMongoDB from "../daos/mongodb/cart.dao.js";
+const cartDao = new CartDaoMongoDB();
+
+import ProdDaoMongoDB from "../daos/mongodb/product.dao.js";
+const prodDao = new ProdDaoMongoDB();
+export const getAllCartServ = async () => {
+  try {
+    const response = await prodDao.getAllProd();
+    return response;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const getByIdCartServ = async (cid) => {
+  try {
+    const item = await cartDao.getCartById(cid);
+    if (!item) return false;
+    else return item;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const createCartServ = async (obj) => {
+  try {
+    const newCart = await cartDao.createCart(obj);
+    if (!newCart) return false;
+    else return newCart;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const updatedCartServ = async (cid, obj) => {
+  try {
+    const itemCart = await cartDao.updateCart(cid, obj);
+    return itemCart;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const addCartToUser = async (cid, idUser) => {
+  try {
+    const itemCartExists = await cartDao.getCartById(cid);
+    const youCart = await cartDao.addCartToUser(idUser, cid)
+    if (!itemCartExists) throw new Error (`Cart ${cid} not exists`);
+    else return youCart;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const deleteCartServ = async (cid) => {
+  try {
+    const cart = await cartDao.deleteCart(cid);
+    return cart;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const removeProdToCart = async ( id) => {
+  try {
+    const productRemove = await cartDao.removeProduct(id);
+    return productRemove;
+  } catch (error) {
+    console.log(error);
+  }
+};
