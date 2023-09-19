@@ -1,6 +1,8 @@
 import UserDaoMongoDB from "../persistence/daos/mongodb/user.dao.js";
 const userDao = new UserDaoMongoDB();
 
+import  {getByIdDTO} from "../persistence/repositories/user/user.repository.js";
+
 export const register = async (req, res, next)=>{
   try {
     res.json({
@@ -59,3 +61,13 @@ export const addCartToUser = async (userId, cartId) => {
     console.log(error.message);
   }
 };
+
+export const  getByIdDTO = async (id)=>{
+  try {
+      const user= await userdRepository.getByIdDTO(id);
+      if(!user) return false;
+      else return user;
+  } catch (error) {
+      console.log(error);
+  }
+}

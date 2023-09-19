@@ -7,14 +7,14 @@ No es necesario implementarlo en ambos lados, salvo que sea sumamente necesario.
 
 export default class UseResDto {
   constructor(user) {
-    first_name;
+    user.first_name;
 
-    last_name;
+    user.last_name;
 
-    email;
+    user.email;
 
-    age;
+    user.age;
 
-    role;
+    user.role;
   }
 }

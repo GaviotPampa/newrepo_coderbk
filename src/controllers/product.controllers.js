@@ -62,11 +62,12 @@ export const addProdToCart = async (req, res, next) => {
   try {
     const { idCart } = req.params;
     const { idProduct } = req.params;
-    const newProdCart = await service.addProdToCart(idProduct, idCart);
+    const {quantity } = req.params;
+    const newProdCart = await service.addProdToCart(idProduct, idCart, Number(quantity));
     if (!newProdCart) {
       res.status(404).json({ message: "No se encuentra el producto." });
     } else console.log(`El producto ${idProduct} fue agregado al carrito`);
-    res.json(newProdCart);
+    create (res,200, newProdCart);
   } catch (error) {
     next(error.message);
   }

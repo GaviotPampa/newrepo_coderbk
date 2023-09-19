@@ -51,10 +51,11 @@ export default class ProdDaoMongoDB {
     }
   }
 
-  async addProdToCart(productId, cartId) {
+  async addProdToCart(productId, cartId, quantity) {
     try {
       const cart = await CartModel.findById(cartId);
-      cart.products.push(productId.trim());
+      if (!cart) return false;
+      cart.products.push(productId.trim(), quantity);
       cart.save();
       return cart;
     } catch (error) {

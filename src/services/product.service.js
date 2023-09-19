@@ -44,10 +44,10 @@ export const updatedServ = async (id, obj) => {
   }
 };
 
-export const addProdToCart = async (cartId, productId) => {
+export const addProdToCart = async (cartId, productId, quantity) => {
   try {
     const prodExists = await prodDao.getProdById(productId);
-    const newProdCart = await prodDao.addProdToCart(cartId, productId);
+    const newProdCart = await prodDao.addProdToCart(cartId, productId, quantity);
     if (!prodExists) throw new Error("Product not found");
     else return newProdCart;
   } catch (error) {

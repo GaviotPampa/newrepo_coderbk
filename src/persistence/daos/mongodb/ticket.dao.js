@@ -1,7 +1,7 @@
 import { TicketModel } from "./models/ticket.model.js";
 
 export default class TkDaoMongoDB {
-    async create(){
+    async create(obj){
      try {
         const response = await TicketModel.create(obj);
         return response;
