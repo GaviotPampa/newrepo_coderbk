@@ -9,11 +9,11 @@ import session from "express-session";
 
 import passport from "passport";
 import "./config/passport.config.js";
-import "./config/github.strategy.js"
+import "./config/github.strategy.js";
 
-import { Server } from "socket.io";
+import { Server, Socket } from "socket.io";
 import { errorHandler } from "./middlewares/middle.js";
-import "./daos/mongodb/db/dbConnection.js";
+import "./persistence/daos/mongodb/db/dbConnection.js";
 
 import viewsRouter from "./routes/views.router.js";
 import sessionRouter from "./routes/session.router.js";
@@ -24,8 +24,11 @@ import chatRouter from "./routes/chats.router.js";
 import productRouter from "./routes/products.router.js";
 import cartRouter from "./routes/carts.router.js";
 import userRouter from "./routes/user.router.js";
-/* import MessageManager from "./managers/messages.manager.js";
- const msgManager = new MessageManager(__dirname+'/data/messages.json');  */
+import emailRouter from "./routes/email.router.js";
+import gmailRouter from "./routes/gmail.router.js";
+
+import MessageManager from "./persistence/daos/filesystem/message.dao.js";
+ const msgManager = new MessageManager(__dirname+'/data/messages.json'); 
 
 //ejecucion de express
 
@@ -40,6 +43,12 @@ app
   .use(json())
   .use(urlencoded({ extended: true }))
 
+  app
+  .use(cookieParser(cookieKey))
+  .use(session(mongoStoreOptions))
+
+  .use(express.static(__dirname + "/public"))
+
   /* antes de los enrutadores */
   .use(errorHandler)
   .use(morgan(`dev`));
@@ -49,16 +58,10 @@ app
   .set("view engine", "handlebars")
   .set("views", __dirname + "/views");
 
-app
-  .use(cookieParser(cookieKey))
-  .use(session(mongoStoreOptions))
 
-  .use(express.static(__dirname + "/public"));
 
 //inicializar passport antes de las rutas
-app
-  .use(passport.initialize())
-  .use(passport.session());
+app.use(passport.initialize()).use(passport.session());
 
 /* inicializar rutas con prefijos */
 
@@ -68,8 +71,8 @@ app
       ? parseInt(req.signedCookies.entry) + 1
       : 1;
     console.log(visits); */
-    //res.cookie("nombre_de_la_cokie", valor_de_la_cokie)
-   /*  res
+//res.cookie("nombre_de_la_cokie", valor_de_la_cokie)
+/*  res
       .cookie("entry", visits, {
         maxAge: Date.now() + 1000 * 30,
         signed: true,
@@ -91,7 +94,7 @@ app
 
   .use((req, res, next) => {
     res.status(404).send("recurso no encontrado"); */ // termina
-  /* });
+/* });
  */
 app
   .use("/api/products", productRouter)
@@ -102,7 +105,9 @@ app
   .use("/", viewsRouter)
   /* .use("/carts", cartIdRouter) */
   .use("/api/users", userRouter)
-  .use("/api/sessions", sessionRouter);
+  .use("/api/sessions", sessionRouter)
+  .use("/api", emailRouter)
+  .use("/api", gmailRouter);
 
 const PORT = process.env.PORT || 3000;
 
@@ -117,11 +122,28 @@ const socketServer = new Server(httpServer); ///tb se puede poner const io en ve
 //primero escuchamos el evento connection
 
 socketServer.on("connection", async (socket) => {
-  console.log("`Cliente Conectado", socket.id);
+  console.log("💬User connected", socket.id);
+
+  socketServer.emit("messages", await msgManager.getAll());
 
   socket.on("disconnect", () => {
     console.log("¡User disconnect!", socket.id);
   });
+
+  socket.on("newuser", (user) => {
+    console.log(`${user} inicio sesion`);
+  });
+
+  socket.on("chat: message", async(msg) => {
+    await msgManager.createMsg(msg);
+    socketServer.emit("messages", await msgManager.getAll() );
+
+  });
+
+  socket.on('newUser', (user) => {
+    socket.broadcast.emit('newUser', user);
+
+  } )
 });
 
 //////////////***Connection: server express***/////////////

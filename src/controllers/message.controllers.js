@@ -20,7 +20,7 @@ export const getById = async (req, res, next) => {
   }
 };
 
-export const create = async (req, res, next) => {
+export const createMsg = async (req, res, next) => {
   try {
     const newChat = await service.createChatServ(req.body);
     console.log(newChat);

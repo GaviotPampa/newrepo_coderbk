@@ -3,18 +3,28 @@ const router = Router();
 
 import * as controller from "../controllers/product.controllers.js";
 
-router.get("/", controller.getAllProd);
+router
+  .get("/", controller.getAllProd)
 
-router.post("/", controller.create);
+  .post("/", controller.create)
 
-router.get("/:id", controller.getById);
+  .get("/:id", controller.getById)
 
-router.put("/:id", controller.update);
+  .put("/:id", controller.update)
 
-router.post("/add/:idCart/:idProduct", controller.addProdToCart);
+  /* Sólo el usuario puede agregar productos a su carrito. */
 
-router.delete("/:id", controller.expunge);
+  .post("/add/:idCart/:idProduct", controller.addProdToCart)
 
-router.get("/paginate", controller.getPaginate);
+  .delete("/:id", controller.expunge)
+
+  .get("/paginate", controller.getPaginate);
+
+  /* Sólo el administrador puede crear, actualizar y eliminar productos */
+  /* router.post("/", [verifyToken, isModerator], createProduct);
+
+router.put("/:productId", [verifyToken, isModerator], updateProductById);
+
+router.delete("/:productId", [verifyToken, isAdmin], deleteProductById); */
 
 export default router;

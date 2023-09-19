@@ -1,13 +1,17 @@
 ///conexion con el cliente, instancia del socket del lado del cliente
 const socket = io();
-/* 
+
 let username = null;
 
 if (!username) {
   Swal.fire({
     title: "¡Welcome to chat!",
-    text: "Insert your username",
+    text: "Insert your username ",
     input: "text",
+    showCancelButton: true,
+    confirmButtonColor: "#1ab188",
+    cancelButtonColor: "black",
+    width: "250px",
     inputValidator: (value) => {
       if (!value) return "Your username is required";
     },
@@ -46,16 +50,16 @@ socket.on("msg", (msg) => {
 
 socket.on("newUser", (user) => {
   Toastify({
-    text: `🟢 ${user} is logged in`,
+    text: `🪁 ${user} is logged in`,
     duration: 3000,
-    gravity: "top", */ // `top` or `bottom`
-    /* position: "right", */ // `left`, `center` or `right`
-    /* stopOnFocus: true, */ // Prevents dismissing of toast on hover
- /*    style: {
+    gravity: "top", // `top` or `bottom`
+    position: "right", // `left`, `center` or `right`
+    stopOnFocus: true, // Prevents dismissing of toast on hover
+    style: {
       background: "linear-gradient(to right, #00b09b, #96c93d)",
-    }, */
+    },
     // onClick: function(){} // Callback after click
- /*  }).showToast();
+  }).showToast();
 });
 
 message.addEventListener("keypress", () => {
@@ -63,6 +67,6 @@ message.addEventListener("keypress", () => {
 });
 
 socket.on("chat:typing", (user) => {
+  actions.innerHTML="";
   actions.innerHTML = `<p>${user} is writing a message...</p>`;
 });
- */

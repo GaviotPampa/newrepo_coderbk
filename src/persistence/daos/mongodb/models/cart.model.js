@@ -1,10 +1,10 @@
 import mongoose from "mongoose";
 
 const CartSchema = new mongoose.Schema({
-  cid: { type: String, 
+/*   cid: { type: String, 
          required: true, 
          index: true
-       },
+       }, */
   quantity: { type: Number,
               required: true
             },
@@ -12,7 +12,7 @@ const CartSchema = new mongoose.Schema({
     {
       type: mongoose.Schema.Types.ObjectId,
       ref: "products",
-      default: [],
+      default: [],  
     },
   ],
 });

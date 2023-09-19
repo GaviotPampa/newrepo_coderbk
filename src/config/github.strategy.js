@@ -3,7 +3,7 @@ import { Strategy as GithubStrategy } from "passport-github2";
 
 
 import passport from "passport";
-import UserDao from "../daos/mongodb/user.dao.js";
+import UserDao from "../persistence/daos/mongodb/user.dao.js";
 const userDao = new UserDao();
 
 const strategyOptions = {

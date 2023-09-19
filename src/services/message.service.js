@@ -1,4 +1,4 @@
-import MsgDaoMongoDB from "../daos/mongodb/message.dao.js";
+import MsgDaoMongoDB from "../persistence/daos/mongodb/message.dao.js";
 const messageDao = new MsgDaoMongoDB();
 
 export const getAllMsgsServ = async () => {
@@ -12,7 +12,7 @@ export const getAllMsgsServ = async () => {
 
 export const createChatServ = async (obj) => {
   try {
-    const newChat = await messageDao.create(obj);
+    const newChat = await messageDao.createMsg(obj);
     if (!newChat) return false;
     else return newChat;
   } catch (error) {

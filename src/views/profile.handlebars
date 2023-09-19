@@ -1,11 +1,20 @@
 <div class="contenedor-profile">
-  <h1>Profile </h1>
+  <h1>Profile  </h1>
+  {{#if}}
+  {{#each user}}
   <div>
-    <p> {{user.first_name}}</p>
-    <p> {{user.last_name}}</p>
-    <p> {{user.age}}</p>
-    <p> {{user.role}}</p>
+    <p> {{first_name}}</p>
+    <p> {{last_name}}</p>
+    <p> {{age}}</p>
+    <p> {{role}}</p>
   </div>
+  {{else}}
+  <div>
+    <h1>Hello {{user.name}}</h1>
+      <p>There are nothing yet.</p>
+    </div>
+  {{/each }}
+  {{/if}}
   <div class="register">
     <button
       class="button btn-secudary"

@@ -1,4 +1,4 @@
-import UserDaoMongoDB from "../daos/mongodb/user.dao.js";
+import UserDaoMongoDB from "../persistence/daos/mongodb/user.dao.js";
 const userDao = new UserDaoMongoDB();
 
 export const register = async (req, res, next)=>{

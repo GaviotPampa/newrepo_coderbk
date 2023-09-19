@@ -10,9 +10,9 @@ export default class CartDaoMongoDB {
     }
   }
 
-  async getCartById(cid) {
+  async getCartById(pid) {
     try {
-      const response = await CartModel.findById(cid).populate("products");
+      const response = await CartModel.findById({pid}).populate("products");
       return response;
     } catch (error) {
       console.log(error);
@@ -48,9 +48,10 @@ export default class CartDaoMongoDB {
     }
   }
 
-  async removeProduct(id) {
+  async removeProd(pid) {
     try {
-      const response = await CartModel.findByIdAndRemove(id);
+      const response = await CartModel.findByIdAndRemove({_id: pid});
+      console.log(response);
       return response;
     } catch (error) {
       console.log(error);

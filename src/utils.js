@@ -4,7 +4,7 @@ export const __dirname = dirname(fileURLToPath(import.meta.url));
 import 'dotenv/config';
 
 import MongoStore from 'connect-mongo';
-import './daos/mongodb/db/dbConnection.js';
+import './persistence/daos/mongodb/db/dbConnection.js';
 
 import {hashSync, compareSync, genSaltSync} from "bcrypt";
 

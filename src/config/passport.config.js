@@ -1,19 +1,19 @@
 import passport from "passport";
 import { Strategy as LocalStrategy } from "passport-local";
 
-import UserDao from "../daos/mongodb/user.dao.js";
+import UserDao from "../persistence/daos/mongodb/user.dao.js";
 const userDao = new UserDao();
 
 const strategyOptions = {
   usernameField: "email",
   passwordField: "password",
-  passReqToCallback: true,
+  passReqToCallback: true
 };
 
-const register = async (req, email, password, done) => {
+const register = async (req, email, done) => {
   try {
     const user = await userDao.getByEmail(email);
-    if (user) {
+    if (!user) {
       return done(null, false);
     }
 
@@ -40,8 +40,9 @@ const login = async (req, email, password, done) => {
 const registerStrategy = new LocalStrategy(strategyOptions, register);
 const loginStrategy = new LocalStrategy(strategyOptions, login);
 
-passport.use("login", loginStrategy);
-passport.use("register", registerStrategy);
+passport
+  .use("login", loginStrategy)
+  .use("register", registerStrategy);
 
 passport.serializeUser((user, done) => {
   done(null, user._id);

@@ -1,4 +1,4 @@
-import UserDao from "../daos/mongodb/user.dao.js";
+import UserDao from "../persistence/daos/mongodb/user.dao.js";
 const userDao = new UserDao();
 
 export const register = async (req, res) => {
@@ -39,5 +39,21 @@ export const githubResponse = async (req, res) => {
     });
   } catch (error) {
     next(error);
+  }
+};
+
+export const  profile = (req, res, next)=>{
+  try {
+    const { first_name, last_name, email, role } = req.user;
+    createResponse(res, 200, 
+      {
+        first_name, 
+        last_name, 
+        email, 
+        role
+      }
+    )
+  } catch (error) {
+    next(error.message)
   }
 };

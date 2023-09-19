@@ -1,7 +1,7 @@
-import CartDaoMongoDB from "../daos/mongodb/cart.dao.js";
+import CartDaoMongoDB from "../persistence/daos/mongodb/cart.dao.js";
 const cartDao = new CartDaoMongoDB();
 
-import ProdDaoMongoDB from "../daos/mongodb/product.dao.js";
+import ProdDaoMongoDB from "../persistence/daos/mongodb/product.dao.js";
 const prodDao = new ProdDaoMongoDB();
 export const getAllCartServ = async () => {
   try {
@@ -12,9 +12,9 @@ export const getAllCartServ = async () => {
   }
 };
 
-export const getByIdCartServ = async (cid) => {
+export const getByIdCartServ = async (pid) => {
   try {
-    const item = await cartDao.getCartById(cid);
+    const item = await cartDao.getCartById(pid);
     if (!item) return false;
     else return item;
   } catch (error) {
@@ -34,7 +34,7 @@ export const createCartServ = async (obj) => {
 
 export const updatedCartServ = async (cid, obj) => {
   try {
-    const itemCart = await cartDao.updateCart(cid, obj);
+    const itemCart = await cartDao.saveProductToCart(cid, obj);
     return itemCart;
   } catch (error) {
     console.log(error);
@@ -54,17 +54,18 @@ export const addCartToUser = async (cid, idUser) => {
 
 export const deleteCartServ = async (cid) => {
   try {
-    const cart = await cartDao.deleteCart(cid);
+    const cart = await cartDao.deleteCart({_id: cid});
     return cart;
   } catch (error) {
     console.log(error);
   }
 };
 
-export const removeProdToCart = async ( id) => {
+export const removeProdToCart = async ( pid) => {
   try {
-    const productRemove = await cartDao.removeProduct(id);
-    return productRemove;
+    const prodRemove = await cartDao.removeProd({_id: pid});
+    console.log(prodRemove);
+    return prodRemove;
   } catch (error) {
     console.log(error);
   }

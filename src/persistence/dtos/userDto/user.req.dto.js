@@ -1,0 +1,1 @@
+/* dto para registro */

@@ -2,8 +2,13 @@ import * as service from "../services/cart.service.js";
 
 export const getAll = async (req, res, next) => {
   try {
-    const response = await service.getAllCartServ();
-    res.status(200).json(response);
+    const cart = await service.getAllCartServ();
+    if (cart) {
+      res.status(200).json(cart);
+
+    }else {
+      res.json ({message: "Cart not found"})
+    }
   } catch (error) {
     next(error.message);
   }
@@ -11,8 +16,8 @@ export const getAll = async (req, res, next) => {
 
 export const getById = async (req, res, next) => {
   try {
-    const { id } = req.params;
-    const productInCart = await service.getByIdCartServ(id);
+    const { pid } = req.params;
+    const productInCart = await service.getByIdCartServ({_id: pid});
     if (!productInCart) res.status(404).json({ message: "Product not found in Cart" });
     else res.status(200).json(productInCart);
   } catch (error) {
@@ -36,7 +41,7 @@ export const create = async (req, res, next) => {
 export const update = async (req, res, next) => {
   try {
     const { id } = req.params;
-    const prodUpd = await service.updatedCartServ(id, req.body);
+    const prodUpd = await service.updatedCartServ({_id: id}, req.body);
     res.json(prodUpd);
   } catch (error) {
     next(error.message);
@@ -64,9 +69,19 @@ export const expunge = async (req, res, next) => {
 };
 export const remove = async (req, res, next) => {
     try {
-      const { id } = req.params;
-      const prodRemove = await service.removeProdToCart(id);
-      res.json(prodRemove);
+      const { pid } = req.params;
+      const prodRemove = await service.removeProdToCart({_id: pid});
+      if (prodRemove){
+        res.json({
+          status: true,
+          message: 'Producto eliminado!'
+      })
+      } else {
+        res.json({
+          status: false,
+          message: 'No se puede eliminar'
+      })
+      }
     } catch (error) {
       next(error.message);
     }

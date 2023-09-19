@@ -1,6 +1,6 @@
 //en el servicio llamamos a la clase con su método
 //desde los servicios llamamos al dao
-import ProdDaoMongoDB from "../daos/mongodb/product.dao.js";
+import ProdDaoMongoDB from "../persistence/daos/mongodb/product.dao.js";
 const prodDao = new ProdDaoMongoDB();
 
 // import { __dirname } from "../utils.js";
@@ -46,7 +46,7 @@ export const updatedServ = async (id, obj) => {
 
 export const addProdToCart = async (cartId, productId) => {
   try {
-    const prodExists = await prodDao.getProductById(productId);
+    const prodExists = await prodDao.getProdById(productId);
     const newProdCart = await prodDao.addProdToCart(cartId, productId);
     if (!prodExists) throw new Error("Product not found");
     else return newProdCart;
