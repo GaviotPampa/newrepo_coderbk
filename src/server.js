@@ -27,6 +27,8 @@ import userRouter from "./routes/user.router.js";
 import emailRouter from "./routes/email.router.js";
 import gmailRouter from "./routes/gmail.router.js";
 
+import fakeProdRouter  from "./routes/productMock.router.js";
+
 import MessageManager from "./persistence/daos/filesystem/message.dao.js";
  const msgManager = new MessageManager(__dirname+'/data/messages.json'); 
 
@@ -50,7 +52,6 @@ app
   .use(express.static(__dirname + "/public"))
 
   /* antes de los enrutadores */
-  .use(errorHandler)
   .use(morgan(`dev`));
 
 app
@@ -107,7 +108,12 @@ app
   .use("/api/users", userRouter)
   .use("/api/sessions", sessionRouter)
   .use("/api", emailRouter)
-  .use("/api", gmailRouter);
+  .use("/api", gmailRouter)
+  .use("/api/fakeProducts", fakeProdRouter)
+
+  /* luego de los enrutadores */
+  .use(errorHandler)
+
 
 const PORT = process.env.PORT || 3000;
 

@@ -7,7 +7,7 @@ import * as controller from "../controllers/product.controllers.js";
 router
   .get("/", controller.getAllProd)
 
-  .post("/", checkRole, controller.create)
+  .post("/"/* , checkRole */, controller.create)
 
   .get("/:id", controller.getById)
 

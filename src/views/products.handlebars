@@ -1,14 +1,13 @@
 <div class="contenedor-products">
-  <h2 class="bienvenido">Bienvenido,
-    {{first_name}}
-    ¡Que gusto verte!
+  <h2 class="bienvenido">
+    Bienvenido, {{user.first_name}}¡Que gusto verte!
   </h2>
   {{#if products.length}}
     {{#each products}}
       <div class="items">
-        <p>{{title}}</p>
-        <p>{{price}} </p>
-        <p>{{category}} </p>
+        <p>Producto: {{title}}</p>
+        <p>Precio: {{price}} </p>
+        <p>Categoría: {{category}} </p>
       </div>
     {{/each}}
   {{else}}

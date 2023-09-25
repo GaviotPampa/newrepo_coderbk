@@ -1,14 +1,14 @@
 {{! debe contener una lista de todos los productos agregados hasta el momento }}
 <div class="contenedor-formularios">
   <div>
-  <h3> {{name}}, tu lista de productos</h3>
+  <h3> {{fisrt_name}}, tu lista de productos</h3>
 </div>
 
 {{#if products.length}}
   {{#each products}}
     <div class="items">
-      <p>{{title}}</p>
-      <p>{{price}} </p>
+      <p>Producto: {{title}}</p>
+      <p> Precio: {{price}} </p>
     </div>
   {{/each}}
 {{else}}

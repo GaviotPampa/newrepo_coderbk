@@ -44,6 +44,7 @@ export const create = async (req, res, next) => {
     console.log("Product created successfully whit mongoose");
     return newProduct;
   } catch (error) {
+    console.log("Error creating product");
     next(error.message);
   }
 };

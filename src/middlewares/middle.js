@@ -1,3 +1,4 @@
+
 /* controlador de errores */
 export const errorHandler = (error, req, res, next) => {
     console.log(`${error.message}`);
@@ -6,3 +7,4 @@ export const errorHandler = (error, req, res, next) => {
     next()
 
 }
+
