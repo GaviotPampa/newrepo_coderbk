@@ -14,13 +14,16 @@ sort: asc/desc, para realizar ordenamiento ascendente o descendente por precio, 
   */
 
 import * as service from "../services/product.service.js";
+import { HttpResponse } from "../utils/http.response.js";
+const httpResponse = new HttpResponse();
 
 export const getAllProd = async (req, res, next) => {
   try {
     const response = await service.getAllProdServ();
-    res.status(200).json(response);
+    if (!response) return httpResponse.ServerError(res, "No response");
+    return httpResponse.Ok(res, response);
   } catch (error) {
-    next(error.message);
+    next(error);
   }
 };
 
@@ -28,8 +31,9 @@ export const getById = async (req, res, next) => {
   try {
     const { id } = req.params;
     const product = await service.getByIdServ(id);
-    if (!product) res.status(404).json({ message: "Product not found" });
-    else res.status(200).json(product);
+    if (!product) 
+    return httpResponse.NotFound(res, "Product not found");
+    else httpResponse.Ok (res, product);
   } catch (error) {
     next(error.message);
   }
@@ -37,15 +41,26 @@ export const getById = async (req, res, next) => {
 
 export const create = async (req, res, next) => {
   try {
+    const { ...obj } = req.body;
+    if (!obj.title) httpResponse.BadRequest(res, "Title are required");
+    if (!obj.description)
+      httpResponse.BadRequest(res, "Description are required");
+    if (!obj.price) httpResponse.BadRequest(res, "Price are required");
+    if (!obj.stock) httpResponse.BadRequest(res, "Stock are required");
+    if (!obj.code) httpResponse.BadRequest(res, "Code are required");
+    if (!obj.status) httpResponse.BadRequest(res, "Status are required");
+    if (!obj.category) httpResponse.BadRequest(res, "Category are required");
     const newProduct = await service.createServ(req.body);
     console.log(newProduct);
-    if (!newProduct) res.status(404).json({ message: "Validation error" });
-    else res.status(200).json(newProduct);
+    if (!newProduct)
+      /* res.status(404).json({ message: "Validation error" }); */
+      httpResponse.BadRequest(res, "Validation error");
+    /* res.status(200).json */ else httpResponse.Ok(res, newProduct);
     console.log("Product created successfully whit mongoose");
     return newProduct;
   } catch (error) {
     console.log("Error creating product");
-    next(error.message);
+    next(error);
   }
 };
 
@@ -63,12 +78,16 @@ export const addProdToCart = async (req, res, next) => {
   try {
     const { idCart } = req.params;
     const { idProduct } = req.params;
-    const {quantity } = req.params;
-    const newProdCart = await service.addProdToCart(idProduct, idCart, Number(quantity));
-    if (!newProdCart) {
-      res.status(404).json({ message: "No se encuentra el producto." });
-    } else console.log(`El producto ${idProduct} fue agregado al carrito`);
-    create (res,200, newProdCart);
+    const { quantity } = req.params;
+    const newProdCart = await service.addProdToCart(
+      idProduct,
+      idCart,
+      Number(quantity)
+    );
+    if (!newProdCart) 
+      httpResponse.BadRequest(res, "No se encuentra el producto.");
+    else console.log(`El producto ${idProduct} fue agregado al carrito`);
+    create(res, 200, newProdCart);
   } catch (error) {
     next(error.message);
   }

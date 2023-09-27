@@ -11,7 +11,7 @@ export const getAllProdServ = async () => {
     const response = await prodDao.getAllProd();
     return response;
   } catch (error) {
-    console.log(error);
+    throw new Error(error.message);
   }
 };
 
@@ -21,7 +21,7 @@ export const getByIdServ = async (id) => {
     if (!item) return false;
     else return item;
   } catch (error) {
-    console.log(error);
+    throw new Error(error.message);
   }
 };
 
@@ -31,7 +31,7 @@ export const createServ = async (obj) => {
     if (!newProduct) return false;
     else return newProduct;
   } catch (error) {
-    console.log(error);
+    throw new Error(error.message);
   }
 };
 
@@ -40,18 +40,22 @@ export const updatedServ = async (id, obj) => {
     const item = await prodDao.updateProd(id, obj);
     return item;
   } catch (error) {
-    console.log(error);
+    throw new Error(error.message);
   }
 };
 
 export const addProdToCart = async (cartId, productId, quantity) => {
   try {
     const prodExists = await prodDao.getProdById(productId);
-    const newProdCart = await prodDao.addProdToCart(cartId, productId, quantity);
+    const newProdCart = await prodDao.addProdToCart(
+      cartId,
+      productId,
+      quantity
+    );
     if (!prodExists) throw new Error("Product not found");
     else return newProdCart;
   } catch (error) {
-    console.log(error);
+    throw new Error(error.message);
   }
 };
 export const deleteServ = async (id) => {
@@ -59,7 +63,7 @@ export const deleteServ = async (id) => {
     const item = await prodDao.deleteProd(id);
     return item;
   } catch (error) {
-    console.log(error);
+    throw new Error(error.message);
   }
 };
 
@@ -69,6 +73,6 @@ export const getProdPaginateServ = async (page, limit) => {
     if (!item) throw new Error("Item Paginate not found");
     else return item;
   } catch (error) {
-    console.log(error);
+    throw new Error(error.message);
   }
 };

@@ -118,6 +118,7 @@
     "unpipe": "^1.0.0",
     "utils-merge": "^1.0.1",
     "vary": "^1.1.2",
+    "winston": "^3.10.0",
     "yallist": "^4.0.0"
   },
   "engines": {

@@ -32,7 +32,14 @@ export class HttpResponse {
             error: data
         });
     };
-
+    
+    BadRequest(res, data){
+        return res.status(HttpStatus.BAD_REQUEST).json({
+            status: HttpStatus.BAD_REQUEST,
+            message: 'La solicitud no fue válida',
+            error: data
+        });
+    };
     Forbidden(res, data){
         return res.status(HttpStatus.FORBIDDEN).json({
             status: HttpStatus.FORBIDDEN,
@@ -40,7 +47,13 @@ export class HttpResponse {
             error: data
         });
     };
-
+    UnprocessableEntity (res, data){
+        return res.status(HttpStatus.UNPROCESSABLE_ENTITY).json({
+            status: HttpStatus.UNPROCESSABLE_ENTITY,
+            message: 'Contenido Invalido',
+            error: data
+        });
+    };
     ServerError(res, data){
         return res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({
             status: HttpStatus.INTERNAL_SERVER_ERROR,

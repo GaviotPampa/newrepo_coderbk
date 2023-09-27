@@ -7,18 +7,19 @@ export default class ProdDaoMongoDB {
       const response = await ProductModel.aggregate([
         {
           $match: {
-             category: '${category}'}
+            category: "${category}",
+          },
         },
         {
-          $sort: { 
-            price: -1, 
-            _id: 1 },
+          $sort: {
+            price: -1,
+            _id: 1,
+          },
         },
-       
       ]);
       return response;
     } catch (error) {
-      console.log(error);
+      throw new Error(error.message);
     }
   }
 
@@ -27,7 +28,7 @@ export default class ProdDaoMongoDB {
       const response = await ProductModel.findById(productId);
       return response;
     } catch (error) {
-      console.log(error);
+      throw new Error(error.message);
     }
   }
 
@@ -36,7 +37,7 @@ export default class ProdDaoMongoDB {
       const response = await ProductModel.create(obj);
       return response;
     } catch (error) {
-      console.log(error);
+      throw new Error(error.message);
     }
   }
 
@@ -47,7 +48,7 @@ export default class ProdDaoMongoDB {
       });
       return response;
     } catch (error) {
-      console.log(error);
+      throw new Error(error.message);
     }
   }
 
@@ -59,7 +60,7 @@ export default class ProdDaoMongoDB {
       cart.save();
       return cart;
     } catch (error) {
-      console.log(error);
+      throw new Error(error.message);
     }
   }
 
@@ -72,7 +73,9 @@ export default class ProdDaoMongoDB {
     try {
       const response = await ProductModel.findByIdAndDelete(id);
       return response;
-    } catch (error) {}
+    } catch (error) {
+      throw new Error(error.message);
+    }
   }
 
   async getProdPaginate(page = 1, limit = 10) {
@@ -80,7 +83,7 @@ export default class ProdDaoMongoDB {
       const response = await ProductModel.paginate({}, { page, limit });
       return response;
     } catch (error) {
-      console.log(error);
+      throw new Error(error.message);
     }
   }
 }
