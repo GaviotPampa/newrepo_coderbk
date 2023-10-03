@@ -15,6 +15,8 @@ import { Server, Socket } from "socket.io";
 import { errorHandler } from "./middlewares/middle.js";
 import "./persistence/daos/mongodb/db/dbConnection.js";
 
+import  logger from "./middlewares/logger-mw.js";
+
 import viewsRouter from "./routes/views.router.js";
 import sessionRouter from "./routes/session.router.js";
 import indexRouter from "./routes/index.router.js";
@@ -29,8 +31,15 @@ import gmailRouter from "./routes/gmail.router.js";
 
 import fakeProdRouter  from "./routes/productMock.router.js";
 
+import loggerRouter from "./routes/logger.router.js";
+
 import MessageManager from "./persistence/daos/filesystem/message.dao.js";
  const msgManager = new MessageManager(__dirname+'/data/messages.json'); 
+
+ import {cpus} from 'os';
+
+ const numCPUS = cpus.length;
+console.log(numCPUS);
 
 //ejecucion de express
 
@@ -111,6 +120,7 @@ app
   .use("/api", gmailRouter)
   .use("/api/fakeProducts", fakeProdRouter)
 
+  .use("/loggerTest", loggerRouter)
   /* luego de los enrutadores */
   .use(errorHandler)
 
@@ -119,7 +129,7 @@ const PORT = process.env.PORT || 3000;
 
 //////////////////***Connection: Websocket***/////////////////
 const httpServer = app.listen(PORT, () => {
-  console.log(`🎈Server express listening on port ${PORT}`);
+  logger.info(`🎈Server express listening on port ${PORT}`);
 });
 
 const socketServer = new Server(httpServer); ///tb se puede poner const io en vez de socketServer

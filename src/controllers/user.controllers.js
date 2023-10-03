@@ -1,3 +1,4 @@
+import  logger from "../middlewares/logger-mw.js";
 import UserDao from "../persistence/daos/mongodb/user.dao.js";
 const userDao = new UserDao();
 
@@ -7,7 +8,7 @@ export const register = async (req, res) => {
     if (newUser) res.redirect("/login");
     else res.redirect("/error-register");
   } catch (error) {
-    console.log(error);
+    logger.error(error);
   }
 };
 

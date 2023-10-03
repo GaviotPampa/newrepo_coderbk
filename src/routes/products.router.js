@@ -24,5 +24,6 @@ router
   .delete("/:id", checkRole, controller.expunge)
 
   .get("/paginate", controller.getPaginate);
+  
 
 export default router;

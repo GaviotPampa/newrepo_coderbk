@@ -14,11 +14,11 @@ router
   .get("/error-register", controller.errorRegister)
   .get("/chat", controller.chat)
 
-  .get("/products", controller.products)
+ /*  .get("/products", controller.products) */
   /* router.get("/:id", cartId); */
-  .get("/", (req, res) => {
+ /*  .get("/", (req, res) => {
     res.render("products", { products });
-  })
+  }) */
   .get("/realtimeproducts", (req, res) => {
     res.render("realtimeproducts");
   });
