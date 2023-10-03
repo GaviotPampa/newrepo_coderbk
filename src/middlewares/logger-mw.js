@@ -1,5 +1,6 @@
 import winston from "winston";
-import { transports, format, createLogger } from "winston";
+import { transports, format } from "winston";
+import 'dotenv/config';
 import devLogger from "../utils/dev-logger.js";
 import prodLogger from "../utils/prod-logger.js";
 import { dirname } from "path";
@@ -57,7 +58,7 @@ const loggerConfig =
 
 }
 
-if (loggerConfig !== 'production') {
+if (process.env.NODE_ENV === 'production') {
     logger = prodLogger;
     
 } else {
@@ -66,8 +67,7 @@ if (loggerConfig !== 'production') {
 }
 
 export const addLogger = (req, res, next)=>{
-    req.logger = loggerConfig;
-    req.logger.http(`${req.method} en ${req.url}`)
-    next();
+    req.logger = logger;
+     next();
 }
 export default  logger = winston.createLogger(loggerConfig)
