@@ -1,7 +1,5 @@
 import { createLogger } from "winston";
 import { transports, format } from "winston";
-import  'winston-daily-rotate-file';
-
 /* import "dotenv/config"; */
 /* import devLogger from "../utils/dev-logger.js";
 import prodLogger from "../utils/prod-logger.js"; */
@@ -41,14 +39,13 @@ const logger = createLogger({
     printf((info) => `[${info.timestamp}] ${info.level} ${info.message}`)
   ),
   transports: [
-    new transports.DailyRotateFile({
-      maxFiles: "1d",
+    new transports.File({
+      maxFiles: "30",
       filename: `${__dirname}/../logs/errors.log`,
       level: "error",
     }),
 
     new transports.Console({
-  
       level: "debug",
       format: combine(
         format.colorize( {color: customLevelsOptions.colors})

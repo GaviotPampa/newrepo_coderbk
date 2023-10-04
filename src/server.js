@@ -123,13 +123,13 @@ app
 
   .use(addLogger)
   .get("/loggerTest", (req,res)=>{
-    logger.error("Error message");
-    logger.warning("Warning message");
-    logger.info("User Authenticated");
+    logger.error("Error message> This message should go to the log file");
+    logger.warning("Warning messag> This message should go to the consol");
+    logger.info("User Authenticated> This message should go to the consol");
     /* res.send({ message: "User Profile " }); */
-    logger.http("Http message");
-    logger.verbose("V message");
-    logger.debug("Debug message");
+    logger.http("Http message> This message should go to the consol");
+    logger.verbose("V message> This message should go to the consol");
+    logger.debug("Debug message> This message should go to the console");
     res.send ( {message:'Test loggers'})
   })
   

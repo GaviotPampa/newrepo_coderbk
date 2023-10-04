@@ -1,5 +1,6 @@
 import { ProductModel } from "./models/product.model.js";
 import { CartModel } from "./models/cart.model.js";
+import logger from "../../../middlewares/logger-mw.js";
 
 export default class ProdDaoMongoDB {
   async getAllProd() {
@@ -19,7 +20,7 @@ export default class ProdDaoMongoDB {
       ]);
       return response;
     } catch (error) {
-      throw new Error(error.message);
+      logger.warning (error, "something unexpected happened: " + error.message);
     }
   }
 
@@ -28,7 +29,7 @@ export default class ProdDaoMongoDB {
       const response = await ProductModel.findById(productId);
       return response;
     } catch (error) {
-      throw new Error(error.message);
+      logger.warning ( "something unexpected happened: " + error.message);
     }
   }
 
