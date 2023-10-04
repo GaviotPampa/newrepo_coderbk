@@ -1,0 +1,15 @@
+{
+    "keep": {
+        "days": false,
+        "amount": 15
+    },
+    "auditLog": "C:\\Users\\gavic\\OneDrive\\Escritorio\\programacion_bk\\newrepo_coderbk\\src\\logs\\.59f3364beddd01fdd983185e3c6ab3714c058972-audit.json",
+    "files": [
+        {
+            "date": 1696458078817,
+            "name": "C:\\Users\\gavic\\OneDrive\\Escritorio\\programacion_bk\\newrepo_coderbk\\src\\logs\\errors.log.2023-10-04",
+            "hash": "df51bb760e0723f2a9c0dc8aae59487975998e517f1404875981333d4985224c"
+        }
+    ],
+    "hashType": "sha256"
+}

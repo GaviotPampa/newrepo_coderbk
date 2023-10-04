@@ -1,43 +1,46 @@
-/* port winston from "winston"; */
+/* import winston from "winston"; */
 
-import { createLogger, /* format, */ transports } from "winston";
-/* const { combine, printf, timestamp, colorize, simple } = format; */
+import { createLogger, format, transports } from "winston";
+const { combine, printf, timestamp, colorize, simple, align,errors } = format;
 
-/* const customLevelsOptions = {
-  level: {
-    fatal: 0,
-    error: 1,
-    warning: 2,
-    info: 3,
-    http: 4,
-    default: 5,
+const customLevelsOptions = {
+  levels: {
+    error: 0,
+    warning: 1,
+    info: 2,
+    http: 3,
+    verbose: 4,
+    debug: 5,
   },
   colors: {
-    fatal: "red",
-    error: "orange",
-    warning: "yellow",
-    info: "blue",
-    http: "green",
-    debug: "rose",
+    error: "bold red",
+    warning: "bold orange",
+    info: "blueBG",
+    http: "italic yellow",
+    verboose: "greenBG",
+    debug: "cyabBG",
   },
-}; */
+};
 const prodLogger = createLogger({
- /*  level: customLevelsOptions.level, */
-/*   format: combine(
+  levels: customLevelsOptions.levels,
+  format: combine(
     colorize({ colors: customLevelsOptions.colors }),
+    errors({ stack: true }),
     simple(),
     timestamp({
       format: 'YYYY-MM-DD HH:mm:ss',
     }),
+    align(),
     printf((info) => `[${info.timestamp}] ${info.level} ${info.message}`)
-  ), */
+  ),
 
   transports: [
    
     new transports.Console({
-        level: "debug",
+        level: process.env.LOG_LEVEL ||  "debug",
       }),
   ],
 });
 
 export default prodLogger;
+

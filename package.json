@@ -119,6 +119,7 @@
     "utils-merge": "^1.0.1",
     "vary": "^1.1.2",
     "winston": "^3.10.0",
+    "winston-daily-rotate-file": "^4.7.1",
     "yallist": "^4.0.0"
   },
   "engines": {

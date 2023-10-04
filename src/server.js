@@ -15,7 +15,7 @@ import { Server, Socket } from "socket.io";
 import { errorHandler } from "./middlewares/middle.js";
 import "./persistence/daos/mongodb/db/dbConnection.js";
 
-import  logger from "./middlewares/logger-mw.js";
+import logger, { addLogger } from "./middlewares/logger-mw.js";
 
 import viewsRouter from "./routes/views.router.js";
 import sessionRouter from "./routes/session.router.js";
@@ -31,12 +31,13 @@ import gmailRouter from "./routes/gmail.router.js";
 
 import fakeProdRouter  from "./routes/productMock.router.js";
 
-import loggerRouter from "./routes/logger.router.js";
-
+/*  import loggerRouter from "./routes/logger.router.js"; 
+  */
 import MessageManager from "./persistence/daos/filesystem/message.dao.js";
  const msgManager = new MessageManager(__dirname+'/data/messages.json'); 
 
  import {cpus} from 'os';
+
 
  const numCPUS = cpus.length;
 console.log(numCPUS);
@@ -120,9 +121,21 @@ app
   .use("/api", gmailRouter)
   .use("/api/fakeProducts", fakeProdRouter)
 
-  .use("/loggerTest", loggerRouter)
+  .use(addLogger)
+  .get("/loggerTest", (req,res)=>{
+    logger.error("Error message");
+    logger.warning("Warning message");
+    logger.info("User Authenticated");
+    /* res.send({ message: "User Profile " }); */
+    logger.http("Http message");
+    logger.verbose("V message");
+    logger.debug("Debug message");
+    res.send ( {message:'Test loggers'})
+  })
+  
   /* luego de los enrutadores */
-  .use(errorHandler)
+  .use(errorHandler);
+  
 
 
 const PORT = process.env.PORT || 3000;

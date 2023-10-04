@@ -4,13 +4,13 @@ import logger from "../middlewares/logger-mw.js";
 
 router.get("/"),
   (req, res) => {
-    logger.fatal("Error fatal");
-    logger.error("Level error");
-    logger.warning("ñevel warning");
+    logger.fatal("Fatal message");
+    logger.error("Error message");
+    logger.warning("Warning message");
     logger.info("User Authenticated");
     res.send({ message: "User Profile " });
-    logger.http("level http");
-    logger.debug("level debug");
+    logger.http("Http message");
+    logger.debug("Debug message");
   };
 
 export default router;
