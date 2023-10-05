@@ -17,7 +17,7 @@ export const errorLogin = (req, res) => {
 };
 
 export const profile = async(req, res) => {
-    const profile = await UserModel.find({user: req.user._id});
+    const profile = await UserModel.find({user: req.user.id});
     res.render('profile', {profile})
     console.log(req.session);
 };

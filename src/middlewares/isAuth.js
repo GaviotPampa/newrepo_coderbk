@@ -1,7 +1,8 @@
 /* retorna true o false si el usuario esta autenticado o no */
+import logger from './logger-mw.js';
 export const isAuth = (req,res,next) => {
     console.log(req.session.passport.user);
-    console.log(req.isAuthenticated());
+    logger.error(req.isAuthenticated());
     if(req.isAuthenticated()) return 
     req.user = user;
     next();

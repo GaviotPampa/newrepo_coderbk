@@ -36,11 +36,10 @@ const devLogger = createLogger({
   ),
 
   transports: [
-    new transports.File({
-      maxFiles: 15,
-      filename: `${__dirname}/../logs/errors.log`,
-      level: "error",
-    }),
+    new transports.Console({
+      level: "debug",}
+    ),
+
   ],
 });
 

@@ -12,3 +12,5 @@ info: 🎈Server express listening on port 8080
 [2023-10-04 19:19:30] error Error message
 [2023-10-04 19:45:14] error Error message
 [2023-10-04 20:05:27] error Error message> This message should go to the log file
+[2023-10-04 20:34:11] error Error message> This message should go to the log file
+[2023-10-04 23:17:29] error Error message> This message should go to the log file

@@ -14,6 +14,7 @@ sort: asc/desc, para realizar ordenamiento ascendente o descendente por precio, 
   */
 
 import * as service from "../services/product.service.js";
+import logger from "../middlewares/logger-mw.js";
 import { HttpResponse } from "../utils/http.response.js";
 const httpResponse = new HttpResponse();
 
@@ -33,8 +34,10 @@ export const getById = async (req, res, next) => {
     const product = await service.getByIdServ(id);
     if (!product) 
     return httpResponse.NotFound(res, "Product not found");
+    
     else httpResponse.Ok (res, product);
   } catch (error) {
+    logger.error("Error en la busqueda de producto por ID" );
     next(error.message);
   }
 };
@@ -56,10 +59,10 @@ export const create = async (req, res, next) => {
       /* res.status(404).json({ message: "Validation error" }); */
       httpResponse.BadRequest(res, "Validation error");
     /* res.status(200).json */ else httpResponse.Ok(res, newProduct);
-    console.log("Product created successfully whit mongoose");
+    logger.info("Product created successfully whit mongoose");
     return newProduct;
   } catch (error) {
-    console.log("Error creating product");
+    logger.debug("Error creating product");
     next(error);
   }
 };

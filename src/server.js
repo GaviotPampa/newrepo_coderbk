@@ -31,8 +31,6 @@ import gmailRouter from "./routes/gmail.router.js";
 
 import fakeProdRouter  from "./routes/productMock.router.js";
 
-/*  import loggerRouter from "./routes/logger.router.js"; 
-  */
 import MessageManager from "./persistence/daos/filesystem/message.dao.js";
  const msgManager = new MessageManager(__dirname+'/data/messages.json'); 
 

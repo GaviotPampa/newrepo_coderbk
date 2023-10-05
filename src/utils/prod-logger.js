@@ -1,7 +1,7 @@
 /* import winston from "winston"; */
-
+import "dotenv/config";
 import { createLogger, format, transports } from "winston";
-const { combine, printf, timestamp, colorize, simple, align,errors } = format;
+const { combine, printf, timestamp, colorize, simple, align, errors } = format;
 
 const customLevelsOptions = {
   levels: {
@@ -28,19 +28,22 @@ const prodLogger = createLogger({
     errors({ stack: true }),
     simple(),
     timestamp({
-      format: 'YYYY-MM-DD HH:mm:ss',
+      format: "YYYY-MM-DD HH:mm:ss",
     }),
     align(),
     printf((info) => `[${info.timestamp}] ${info.level} ${info.message}`)
   ),
 
   transports: [
-   
     new transports.Console({
-        level: process.env.LOG_LEVEL ||  "debug",
-      }),
+      level: process.env.LOG_LEVEL || "info",
+    }),
+    new transports.File({
+      maxFiles: 15,
+      filename: `${__dirname}/../logs/errors.log`,
+      level: "error",
+    }),
   ],
 });
 
 export default prodLogger;
-
