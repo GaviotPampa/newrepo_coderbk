@@ -7,7 +7,8 @@ router
   .get("/", controller.getAll)
   .get("/:pid", controller.getById)
   .post("/", controller.create)
-
+  .post('/:cid/product/:pid', controller.update)//**deberá agregar el producto al arreglo “products” del carrito seleccionado, agregándose como un objeto bajo el siguiente formato:  product: SÓLO DEBE CONTENER EL ID DEL PRODUCTO (Es crucial que no agregues el producto completo)**//
+  
   .post("/add/:idUser/:idCart", controller.addCartToUser)
 
   /* deberá eliminar del carrito el producto seleccionado. */

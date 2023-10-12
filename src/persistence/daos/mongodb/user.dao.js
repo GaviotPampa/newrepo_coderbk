@@ -7,7 +7,7 @@ export default class UserDao {
     try {
       const { email, password } = user;
       const existUser = await this.getByEmail(email);
-      console.log("existUser::", existUser);
+      logger.info("existUser::", existUser);
       if (!existUser) {
         if (email === "adminCoder@coder.com" && password === "adminCod3r123") {
           return await UserModel.create({

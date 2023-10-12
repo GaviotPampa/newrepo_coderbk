@@ -6,13 +6,15 @@ const router = Router();
 
 import * as controller from "../controllers/views.controllers.js";
 
+
 router
   .get("/login", controller.login)
   .get("/register", controller.register)
   .get("/profile", controller.profile)
   .get("/error-login", controller.errorLogin)
   .get("/error-register", controller.errorRegister)
-  .get("/chat", controller.chat)
+ .get('/user-restart',(req, res) =>  {
+    res.render('userRestart',{});}) 
 
  /*  .get("/products", controller.products) */
   /* router.get("/:id", cartId); */

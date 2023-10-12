@@ -2,8 +2,6 @@
 import userDao from '../persistence/daos/mongodb/user.dao.js';
 import logger from './logger-mw.js';
 
-import 'dotenv/config';
-
 export const checkRole= async (req, res, next) => {
   try {
     const authHeader = req.get("Authorization");

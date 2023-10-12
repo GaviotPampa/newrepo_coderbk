@@ -1,5 +1,6 @@
 import {connect} from "mongoose";
-import 'dotenv/config';
+import config from '../../../../config/config.js';
+
 //connection local
 /* const connectionString = 'mongodb://localhost:27017/ecommerce'; */
 
@@ -7,7 +8,7 @@ import 'dotenv/config';
 
 try {
   await connect(/* connectionString */
-    process.env.MONGO_ATLAS_URL
+    config.MONGO_ATLAS_URL
   );
   console.log("🪁Connected to MongoDB");
 } catch (error) {

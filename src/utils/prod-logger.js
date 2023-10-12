@@ -1,5 +1,5 @@
 /* import winston from "winston"; */
-import "dotenv/config";
+import {config} from './config.js';
 import { createLogger, format, transports } from "winston";
 const { combine, printf, timestamp, colorize, simple, align, errors } = format;
 
@@ -36,7 +36,7 @@ const prodLogger = createLogger({
 
   transports: [
     new transports.Console({
-      level: process.env.LOG_LEVEL || "info",
+      level: config.LOG_LEVEL || "info",
     }),
     new transports.File({
       maxFiles: 15,

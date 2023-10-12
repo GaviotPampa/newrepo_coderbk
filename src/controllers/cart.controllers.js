@@ -1,4 +1,5 @@
 import * as service from "../services/cart.service.js";
+import  logger  from "../middlewares/logger-mw.js";
 
 export const getAll = async (req, res, next) => {
   try {
@@ -28,10 +29,10 @@ export const getById = async (req, res, next) => {
 export const create = async (req, res, next) => {
   try {
     const newProdInCart = await service.createCartServ(req.body);
-    console.log(newProdInCart);
+    logger.info(newProdInCart);
     if (!newProdInCart) res.status(404).json({ message: "Validation error" });
     else res.status(200).json(newProdInCart);
-    console.log("Product successfully added to cart");
+    logger.info("Product successfully added to cart");
     return newProdInCart;
   } catch (error) {
     next(error.message);

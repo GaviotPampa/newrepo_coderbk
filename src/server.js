@@ -1,11 +1,10 @@
-import "dotenv/config";
-
 import express, { json, urlencoded } from "express";
 import morgan from "morgan";
 import { __dirname, mongoStoreOptions } from "./utils.js";
 import handlebars from "express-handlebars";
 import cookieParser from "cookie-parser";
 import session from "express-session";
+import config from './config/config.js';
 
 import passport from "passport";
 import "./config/passport.config.js";
@@ -16,6 +15,10 @@ import { errorHandler } from "./middlewares/middle.js";
 import "./persistence/daos/mongodb/db/dbConnection.js";
 
 import logger, { addLogger } from "./middlewares/logger-mw.js";
+
+import swaggerUI from 'swagger-ui-express';
+import swaggerJSDoc from 'swagger-jsdoc';
+import {info} from './docs/infoApi.js'
 
 import viewsRouter from "./routes/views.router.js";
 import sessionRouter from "./routes/session.router.js";
@@ -43,6 +46,9 @@ console.log(numCPUS);
 //ejecucion de express
 
 const app = express();
+
+const specs = swaggerJSDoc(info);
+app.use('/docs', swaggerUI.serve, swaggerUI.setup(specs));
 
 const cookieKey = "1234";
 
@@ -136,7 +142,7 @@ app
   
 
 
-const PORT = process.env.PORT || 3000;
+const PORT = config.PORT || 3000;
 
 //////////////////***Connection: Websocket***/////////////////
 const httpServer = app.listen(PORT, () => {

@@ -18,7 +18,7 @@ const UserSchema = new mongoose.Schema({
     type: Number,
     required: true,
     index: true,
-    default: 0
+    default: 0,
   },
   password: {
     type: String,
@@ -32,11 +32,11 @@ const UserSchema = new mongoose.Schema({
 
   cartId: [
     {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'carts',
-        default: [],
-    }
-],
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "carts",
+      default: [],
+    },
+  ],
 
   isGithub: {
     type: Boolean,

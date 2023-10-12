@@ -1,8 +1,7 @@
 import { dirname } from 'path';
 import { fileURLToPath } from "url";
 export const __dirname = dirname(fileURLToPath(import.meta.url));
-import 'dotenv/config';
-
+import config from './config/config.js';
 import MongoStore from 'connect-mongo';
 import './persistence/daos/mongodb/db/dbConnection.js';
 
@@ -26,7 +25,7 @@ export const isValidPassword = ( password, user ) => compareSync (password, user
 
 export const mongoStoreOptions = {
     store: MongoStore.create({
-        mongoUrl: process.env.MONGO_ATLAS_URL,
+        mongoUrl: config.MONGO_ATLAS_URL,
         crypto: {
             secret: '1234'
         }

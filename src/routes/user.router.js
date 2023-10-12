@@ -42,6 +42,11 @@ router
       if (err) return res.send(err);
       else res.redirect("/login");
     });
+  
+    /*ruta en el router de api/users, la cual será /api/users/premium/:uid  la cual permitirá cambiar el rol de un usuario, de “user” a “premium” y viceversa.
+ */
+  /* .get('/premium/:uid', (req, res) => {}) */
+   
   });
 
 export default router;

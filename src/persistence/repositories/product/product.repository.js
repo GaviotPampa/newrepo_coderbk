@@ -1,29 +1,28 @@
-import factory from "../../daos/mongodb/product.dao.js";
-const { prodDao } = factory;
-import ProductResDTO from "../../dtos/product/product.res.dto.js";
-import ProductDTO from "../../dtos/product/product.req.dto.js";
+import ProductReqDTO from "../../dtos/product/product.req.dto.js";
+import {logger} from '../../../middlewares/logger-mw.js';
+import prodDaoMongoDB from '../../daos/mongodb/product.dao.js';
 
 export default class ProductRepository {
     constructor(){
-        this.dao = prodDao;
+        this.dao = prodDaoMongoDB;
     }
 
     async getByIdDTO(id){
         try {
             const response = await this.dao.getById(id);
-            return new ProductResDTO(response);
+            return new ProductReqDTO(response);
         } catch (error) {
-            console.log(error);
+            logger.error(error);
         }
     }
 
     async createProdDTO(obj) {
         try {
-          const prodDTO = new ProductDTO(obj);
+          const prodDTO = new ProductReqDTO(obj);
           const response = await this.dao.create(prodDTO);
           return response;
         } catch (error) {
-          console.log(error);
+          logger.error(error);
         }
     }
 }

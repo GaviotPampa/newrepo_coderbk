@@ -2,22 +2,22 @@ import { Schema, model } from "mongoose";
 import mongoosePaginate from "mongoose-paginate-v2";
 //schema
 const ProductSchema = new Schema({
-  title: {
+  marca: {
     type: String,
     required: true,
     index: true,
   },
-  description: { type: String },
-  price: {
+  descripcion: { type: String },
+  importe: {
     type: Number,
     required: true,
   },
-  code: {
+  codigo: {
     type: String,
     required: true,
     unique: true,
   },
-  status: {
+  estado: {
     type: Boolean,
     required: true,
     default: true,
@@ -26,11 +26,15 @@ const ProductSchema = new Schema({
     type: Number,
     required: true,
   },
-  category: {
+  categoria: {
     type: String,
     required: true,
   },
-
+  owner: {
+    type: String,
+    required: true,
+    default: "admin",
+  },
   inCart: {
     type: Boolean,
     default: false,

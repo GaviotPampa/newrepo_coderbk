@@ -16,6 +16,8 @@ sort: asc/desc, para realizar ordenamiento ascendente o descendente por precio, 
 import * as service from "../services/product.service.js";
 import logger from "../middlewares/logger-mw.js";
 import { HttpResponse } from "../utils/http.response.js";
+import ProductService from "../services/product.service.js";
+
 const httpResponse = new HttpResponse();
 
 export const getAllProd = async (req, res, next) => {
@@ -32,12 +34,10 @@ export const getById = async (req, res, next) => {
   try {
     const { id } = req.params;
     const product = await service.getByIdServ(id);
-    if (!product) 
-    return httpResponse.NotFound(res, "Product not found");
-    
-    else httpResponse.Ok (res, product);
+    if (!product) return httpResponse.NotFound(res, "Product not found");
+    else httpResponse.Ok(res, product);
   } catch (error) {
-    logger.error("Error en la busqueda de producto por ID" );
+    logger.error("Error en la busqueda de producto por ID");
     next(error.message);
   }
 };
@@ -54,7 +54,7 @@ export const create = async (req, res, next) => {
     if (!obj.status) httpResponse.BadRequest(res, "Status are required");
     if (!obj.category) httpResponse.BadRequest(res, "Category are required");
     const newProduct = await service.createServ(req.body);
-    console.log(newProduct);
+    logger.info(newProduct);
     if (!newProduct)
       /* res.status(404).json({ message: "Validation error" }); */
       httpResponse.BadRequest(res, "Validation error");
@@ -66,6 +66,13 @@ export const create = async (req, res, next) => {
     next(error);
   }
 };
+
+export const createProdDTO = async (req, res) => {try {
+  const newProduct = await ProductService.createProdDTO(req.body);
+  if (!newProduct)return httpResponse.BadRequest (res, errors.BadRequest)
+} catch (error) {
+  logger.error("Error creating");
+}}
 
 export const update = async (req, res, next) => {
   try {
@@ -87,10 +94,14 @@ export const addProdToCart = async (req, res, next) => {
       idCart,
       Number(quantity)
     );
-    if (!newProdCart) 
+    if (!newProdCart) {
       httpResponse.BadRequest(res, "No se encuentra el producto.");
-    else console.log(`El producto ${idProduct} fue agregado al carrito`);
-    create(res, 200, newProdCart);
+    } else {
+      logger.info(`El producto ${idProduct} fue agregado al carrito`);
+      create(res, 200, newProdCart);
+    }
+
+    /*  for(let i =0; i <newProdCart.length; i++) */
   } catch (error) {
     next(error.message);
   }
