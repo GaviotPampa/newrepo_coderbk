@@ -1,25 +1,24 @@
 <div class="contenedor-profile">
-  <h1>Profile  </h1>
-  {{#if}}
-  {{#each user}}
-  <div>
-    <p> {{first_name}}</p>
-    <p> {{last_name}}</p>
-    <p> {{age}}</p>
-    <p> {{role}}</p>
+  <h1>Profile </h1>
+  {{!--  {{#if user}}
+  {{#each this}} --}}
+  <h2>Hello {{user.email}}</h2>
+  <div class="profile">
+    <p> Nombre: {{user.first_name}}</p>
+    <p>role: {{user.role}}</p>
   </div>
-  {{else}}
+
+  {{!--   {{else}}
   <div>
     <h1>Hello {{user.first_name}}</h1>
       <p>There are nothing yet.</p>
-    </div>
+  </div>
   {{/each }}
-  {{/if}}
+  {{/if}} --}}
   <div class="register">
     <button
       class="button btn-secudary"
-      onclick="location.href='/api/users/logout'"
+      onclick="location.href='/api/sessions/login'"
     >Cerrar Sesión</button>
   </div>
-
 </div>

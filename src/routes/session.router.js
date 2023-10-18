@@ -10,7 +10,8 @@ router
   .get("/register", controller.register)
   .get("/profile", controller.profile)
   .get("/error-login", controller.errorLogin)
-  .get("/error-register", controller.errorRegister);
+  .get("/error-register", controller.errorRegister)
+ 
 /* router.get("/current", controller.sessionCurrent); */
 
 export default router;

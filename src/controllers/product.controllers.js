@@ -4,19 +4,19 @@
 
 /* Se deberá poder buscar productos por categoría o por disponibilidad, y se deberá poder realizar un ordenamiento de estos productos de manera ascendente o descendente por precio. */
 
-/* Con base en nuestra implementación actual de productos, modificar el método GET / para que cumpla con los siguientes puntos:
+/* Método GET / que cumpla con los siguientes puntos:
 Deberá poder recibir por query params un limit (opcional), una page (opcional), un sort (opcional) y un query (opcional)
 -limit permitirá devolver sólo el número de elementos solicitados al momento de la petición, en caso de no recibir limit, éste será de 10.
 page permitirá devolver la página que queremos buscar, en caso de no recibir page, ésta será de 1
  */
-/*query, el tipo de elemento que quiero buscar (es decir, qué filtro aplicar), en caso de no recibir query, realizar la búsqueda general
+/*query, el tipo de elemento que quiero buscar ( qué filtro aplicar), en caso de no recibir query, realizar la búsqueda general
 sort: asc/desc, para realizar ordenamiento ascendente o descendente por precio, en caso de no recibir sort, no realizar ningún ordenamiento
   */
 
 import * as service from "../services/product.service.js";
 import logger from "../middlewares/logger-mw.js";
 import { HttpResponse } from "../utils/http.response.js";
-import ProductService from "../services/product.service.js";
+import * as  serviceDto from "../services/product.service.js";
 
 const httpResponse = new HttpResponse();
 
@@ -67,12 +67,14 @@ export const create = async (req, res, next) => {
   }
 };
 
-export const createProdDTO = async (req, res) => {try {
-  const newProduct = await ProductService.createProdDTO(req.body);
-  if (!newProduct)return httpResponse.BadRequest (res, errors.BadRequest)
-} catch (error) {
-  logger.error("Error creating");
-}}
+export const createProdDTO = async (req, res) => {
+  try {
+    const newProduct = await serviceDto.createProdDTO(req.body);
+    if (!newProduct) return httpResponse.BadRequest(res, errors.BadRequest);
+  } catch (error) {
+    logger.error("Error creating");
+  }
+};
 
 export const update = async (req, res, next) => {
   try {
@@ -94,12 +96,21 @@ export const addProdToCart = async (req, res, next) => {
       idCart,
       Number(quantity)
     );
-    if (!newProdCart) {
+    const user = req.body.user;
+    const product = req.body.product;
+    if (newProdCart && user.isPremium && product.owner === user.id) {
+      logger.info("No puedes agregar este producto a tu carrito.");
+    } else {
+      // Agrega el producto al carrito.
+      logger.info(`El producto ${idProduct} fue agregado al carrito`);
+      create(res, 200, newProdCart);
+    }
+ /*    if (!newProdCart) {
       httpResponse.BadRequest(res, "No se encuentra el producto.");
     } else {
       logger.info(`El producto ${idProduct} fue agregado al carrito`);
       create(res, 200, newProdCart);
-    }
+    } */
 
     /*  for(let i =0; i <newProdCart.length; i++) */
   } catch (error) {

@@ -1,5 +1,5 @@
-import ProductReqDTO from "../../dtos/product/product.req.dto.js";
-import {logger} from '../../../middlewares/logger-mw.js';
+import ProductReqDTO from "../../dtos/productDto/product.req.dto.js";
+import logger from '../../../middlewares/logger-mw.js';
 import prodDaoMongoDB from '../../daos/mongodb/product.dao.js';
 
 export default class ProductRepository {

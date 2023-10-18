@@ -1,37 +1,47 @@
 import UserDaoMongoDB from "../persistence/daos/mongodb/user.dao.js";
 const userDao = new UserDaoMongoDB();
 
-import  {getByIdDTO} from "../persistence/repositories/user/user.repository.js";
+import { getByIdDTO } from "../persistence/repositories/user/user.repository.js";
 
-export const register = async (req, res, next)=>{
+export const register = async (req, res, next) => {
+  console.log("error register user.service",register);
   try {
     res.json({
-      msg: 'Register ok',
-      session: req.session 
+      msg: "Register ok",
+      session: req.session,
     });
   } catch (error) {
-    next(error.message)
+    next(error.message);
   }
-}  
+};
 
-export const login= async(req, res, next)=>{
+export const login = async (req, res, next) => {
   try {
     if (req.session.user) {
-      const user = await userDao.getById(req.session.user);
+      const user = await userDao.getById(req.session.passport.user);
       res.json({
-        msg: 'Login ok',
-        user
-      
-      })
+        msg: "Login ok",
+        user,
+      });
+      console.log("login successful user.service", user);
     } else {
-      res.json ({msg: 'Login error'})
+      res.json({ msg: "Login error en user.service" });
     }
-
-    console.log(user);
   } catch (error) {
-    next(error.message)
+    next(error.message);
   }
-}  
+};
+
+export const profile = async (req, res, next) => {
+  try {
+    res.json({
+      msg: "Profile user.service",
+      session: req.session,
+    });
+  } catch (error) {
+    next(error.message);
+  }
+};
 
 export const githubResponse = async (req, res, next) => {
   try {
@@ -62,12 +72,12 @@ export const addCartToUser = async (userId, cartId) => {
   }
 };
 
-export const  getByIdDTO = async (id)=>{
+export const getByIdDTO = async (id) => {
   try {
-      const user= await userdRepository.getByIdDTO(id);
-      if(!user) return false;
-      else return user;
+    const user = await userdRepository.getByIdDTO(id);
+    if (!user) return false;
+    else return user;
   } catch (error) {
-      console.log(error);
+    console.log(error);
   }
-}
+};

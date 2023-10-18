@@ -7,7 +7,7 @@ export default class UserDao {
     try {
       const { email, password } = user;
       const existUser = await this.getByEmail(email);
-      logger.info("existUser::", existUser);
+      logger.info("logger info existUser en user.dao:", existUser);
       if (!existUser) {
         if (email === "adminCoder@coder.com" && password === "adminCod3r123") {
           return await UserModel.create({
@@ -22,7 +22,8 @@ export default class UserDao {
         });
       } else return false;
     } catch (error) {
-      logger.error(error);
+      logger.error("error en el register user.dao",error);
+      throw new Error(error)
     }
   }
 
@@ -51,7 +52,7 @@ export default class UserDao {
       }
       return false;
     } catch (error) {
-      console.log(error);
+      logger.error(error);
       throw new Error(error);
     }
   }
@@ -65,7 +66,19 @@ export default class UserDao {
       }
       return false;
     } catch (error) {
-      console.log(error);
+      throw new Error(error);
+    }
+  }
+
+  async profile(email) {
+    try {
+      const userExist = await UserModel.findOne({ email });
+      console.log(userExist);
+      if (userExist) {
+        return userExist;
+      }
+      return false;
+    } catch (error) {
       throw new Error(error);
     }
   }

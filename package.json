@@ -1,7 +1,7 @@
 {
   "name": "newrepo_coderbk",
   "version": "1.0.0",
-  "description": "",
+  "description": "Backend development project for the Coderhouse FullStack Backend Programming course",
   "main": "src/server.js",
   "type": "module",
   "scripts": {
@@ -129,6 +129,6 @@
   "engines": {
     "node": "18.16.0"
   },
-  "author": "",
+  "author": "<Gabi LC>",
   "license": "ISC"
 }

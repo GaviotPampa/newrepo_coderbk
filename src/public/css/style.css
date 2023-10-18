@@ -41,6 +41,7 @@ label {
 
 input {
   width: 100%;
+  height: 20px;
 }
 
 .button {
@@ -139,6 +140,11 @@ input {
   margin: 40px;
   padding: 20px;
   max-width: 300px;
+  text-align: center;
+}
+
+.profile {
+  color: #000;
 }
 
 

@@ -17,9 +17,9 @@ export const errorLogin = (req, res) => {
 };
 
 export const profile = async(req, res) => {
-    const profile = await UserModel.find({user: req.user.id});
-    res.render('profile', {profile})
-    console.log(req.session);
+    const profile = await UserModel.findOne({email: req.body.email});
+    res.render('profile')
+    console.log("views controller profile ",profile);
 };
 
 export const products = (req, res) => {

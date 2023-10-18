@@ -1,9 +1,12 @@
 import { Router } from "express";
-import TicketController from "../controllers/ticket.controller.js";
-import { checkAuth } from "../middlewares/isAuth.js";
-
+import * as controller from "../controllers/ticket.controller.js";
+import { isAuth } from "../middlewares/isAuth.js";
+/* import { getAll } from "../controllers/cart.controllers.js";
+ */
 const router = Router();
 
-router.post('/', checkAuth, controller.generateTicket);
+router
+  .get("/", controller.getAllTk)
+  .post("/", isAuth, controller.generateTicket);
 
 export default router;

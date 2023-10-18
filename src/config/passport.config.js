@@ -7,20 +7,20 @@ const userDao = new UserDao();
 const strategyOptions = {
   usernameField: "email",
   passwordField: "password",
-  passReqToCallback: true
+  passReqToCallback: true,
 };
 
 const register = async (req, email, done) => {
   try {
     const user = await userDao.getByEmail(email);
-    if (!user) {
-      return done(null, false);
-    }
+    console.log("register passport.config", user);
 
+    if (user) return done(null, false);
     const newUser = await userDao.register(req.body);
+    console.log("register passport.config", newUser);
     return done(null, newUser);
   } catch (error) {
-    console.log("Error al obtener el usuario" + error);
+    console.log("Error al obtener el usuario en passport.config" + " " + error);
   }
 };
 
@@ -40,9 +40,7 @@ const login = async (req, email, password, done) => {
 const registerStrategy = new LocalStrategy(strategyOptions, register);
 const loginStrategy = new LocalStrategy(strategyOptions, login);
 
-passport
-  .use("login", loginStrategy)
-  .use("register", registerStrategy);
+passport.use("login", loginStrategy).use("register", registerStrategy);
 
 passport.serializeUser((user, done) => {
   done(null, user._id);
