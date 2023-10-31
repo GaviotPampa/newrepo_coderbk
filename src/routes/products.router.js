@@ -9,9 +9,9 @@ router
 
   .post("/"/* , checkRole */, controller.create)
 
-  .get("/:id", controller.getById)
+  .get("/:pid", controller.getById)
 
-  .put("/:id", checkRole, controller.update)
+  .put("/:pid", checkRole, controller.update)
 
   /* Sólo el usuario puede agregar productos a su carrito. */
 

@@ -3,7 +3,7 @@ import  logger  from "../middlewares/logger-mw.js";
 
 export const getAll = async (req, res, next) => {
   try {
-    const cart = await service.getAllCartServ();
+    const cart = await service.getAll();
     if (cart) {
       res.status(200).json(cart);
 
@@ -18,7 +18,7 @@ export const getAll = async (req, res, next) => {
 export const getById = async (req, res, next) => {
   try {
     const { pid } = req.params;
-    const productInCart = await service.getByIdCartServ({_id: pid});
+    const productInCart = await service.getById({_id: pid});
     if (!productInCart) res.status(404).json({ message: "Product not found in Cart" });
     else res.status(200).json(productInCart);
   } catch (error) {

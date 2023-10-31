@@ -6,7 +6,7 @@ import cookieParser from "cookie-parser";
 import session from "express-session";
 import config from "./config/config.js";
 
-import passport from "passport";
+import passport from 'passport';
 import "./config/passport.config.js";
 import "./config/github.strategy.js";
 
@@ -39,6 +39,7 @@ const specs = swaggerJSDoc(infoApi);
 app.use("/apidocs", swaggerUI.serve, swaggerUI.setup(specs));
 
 const cookieKey = "1234";
+console.log('version Node: ', process.version);
 
 //middleware funciones antes de enviar la respuesta al cliente app.use, siempre en el archivo de entrada al servidor
 //sirven para que el servidor pueda reconocer la info que llega del lado del cliente, sin esto no reconoce lo que enviamos, deben estar siempre
@@ -117,10 +118,17 @@ app
 
 const PORT = config.PORT || 3000;
 
-//////////////////***Connection: Websocket***/////////////////
-const httpServer = app.listen(PORT, () => {
-  logger.info(`🎈Server express listening on port ${PORT}`);
+//////////////***Connection: server express***/////////////
+app.listen(PORT, () => {
+logger.info('🧲 Server conectado listening on port ${PORT}');
 });
+
+export default app;
+
+//////////////////***Connection: Websocket***/////////////////
+/* const httpServer = app.listen(PORT, () => {
+  logger.info(`🎈Conexion Web Socket listening on port ${PORT}`);
+}); */
 
 /* const socketServer = new Server(httpServer); */ ///tb se puede poner const io en vez de socketServer
 
@@ -152,7 +160,3 @@ const httpServer = app.listen(PORT, () => {
   } )
 }); */
 
-//////////////***Connection: server express***/////////////
-/* app.listen(8080, () => {
-console.log('🔌 Server conectado listening on port 8080');
-}); */

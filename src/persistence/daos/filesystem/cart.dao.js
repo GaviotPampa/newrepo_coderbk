@@ -1,6 +1,6 @@
 import fs from 'fs';
 import {__dirname} from '../../../utils.js';
-import { getProductById, getMaxId } from './product.dao.js';  
+import { getProdById, getMaxId } from './product.dao.js';  
 const pathFile = __dirname + "/data/carts.json";
 
 export const getAllCarts = async () => {
@@ -51,7 +51,7 @@ export const saveProductToCart = async (idCart, idProduct) => {
     const cartsFile = await getAllCarts();
     const cartExist = await getCartById(idCart);
     //verificar si el producto existe
-    const prodExistsinJson = await getProductById(idProduct);
+    const prodExistsinJson = await getProdById(idProduct);
     if(prodExistsinJson){
       //si el carrito existe, se busca si el producto existe
       if(cartExist) {

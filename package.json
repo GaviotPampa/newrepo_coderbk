@@ -6,7 +6,13 @@
   "type": "module",
   "scripts": {
     "start": "node . src/server.js",
-    "dev": "nodemon . src/server.js"
+    "dev": "nodemon . src/server.js",
+    "test.cart": "mocha ./src/tests/cartChaiTest.test.js",
+    "test.session": "mocha ./src/tests/sessionChaiTest.test.js",
+    "test.product": "mocha ./src/tests/productChaiTest.test.js",
+    "test.user": "mocha ./src/tests/Users.test.js",
+    "test:all": "mocha ./src/tests --recursive",
+    "test:win": "set NODE_OPTIONS=--experimental-vm-modules && npx jest /src/tests/app/supertest.test.js"
   },
   "dependencies": {
     "@faker-js/faker": "^8.1.0",
@@ -130,5 +136,12 @@
     "node": "18.16.0"
   },
   "author": "<Gabi LC>",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "@types/passport": "^1.0.14",
+    "@types/swagger-jsdoc": "^6.0.2",
+    "chai": "^4.3.10",
+    "mocha": "^10.2.0",
+    "supertest": "^6.3.3"
+  }
 }

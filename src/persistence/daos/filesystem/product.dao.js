@@ -9,7 +9,7 @@ const pathFile = __dirname + "/data/products.json";
   } */
 
 ///lectura del archivo
-export const getAllProducts = async () => {
+export const getAllProd = async () => {
   try {
     if (fs.existsSync(pathFile)) {
       const products = await fs.promises.readFile(pathFile, "utf-8");
@@ -22,13 +22,13 @@ export const getAllProducts = async () => {
     console.log(error);
   }
 };
-export const createProduct = async (obj) => {
+export const createProd = async (obj) => {
   try {
     const product = {
       id: (await getMaxId()) + 1,
       ...obj,
     };
-    const productsFile = await getAllProducts();
+    const productsFile = await getAllProd();
     productsFile.push(product);
     await fs.promises.writeFile(pathFile, JSON.stringify(productsFile));
     return product;
@@ -39,16 +39,16 @@ export const createProduct = async (obj) => {
 
 export const getMaxId = async () => {
   let maxId = 0;
-  const products = await getAllProducts();
+  const products = await getAllProd();
   products.map((product) => {
     if (product.id > maxId) maxId = product.id;
   });
   return maxId;
 };
 
-export const getProductById = async (id) => {
+export const getProdById = async (id) => {
   try {
-    const products = await getAllProducts();
+    const products = await getAllProd();
     const product = products.find((product) => product.id === id);
 
     if (product) {
@@ -61,9 +61,9 @@ export const getProductById = async (id) => {
   }
 };
 
-export const updateProduct = async (obj, id) => {
+export const updateProd = async (obj, id) => {
   try {
-    const productsFile = await getAllProducts();
+    const productsFile = await getAllProd();
     const productIndex = productsFile.filter((product) => product.id === id);
     if (productIndex === id) {
       return { ...obj, id };
@@ -77,9 +77,9 @@ export const updateProduct = async (obj, id) => {
   }
 };
 
-export const deleteProduct = async (id) => {
+export const deleteProd = async (id) => {
   try {
-    const productsFile = await getAllProducts();
+    const productsFile = await getAllProd();
     const productFilter = productsFile.filter((product) => product.id === id);
     if (productFilter != id) {
       throw new Error("Product not found");

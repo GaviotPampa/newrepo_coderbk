@@ -2,18 +2,18 @@ import { ProductModel } from "./models/product.model.js";
 import { CartModel } from "./models/cart.model.js";
 import logger from "../../../middlewares/logger-mw.js";
 
-export default class ProdDaoMongoDB {
+export default class ProdDaoMDB {
   async getAllProd() {
     try {
       const response = await ProductModel.aggregate([
         {
           $match: {
-            category: "${category}",
+            categoria: "${categoria}",
           },
         },
         {
           $sort: {
-            price: -1,
+            importe: -1,
             _id: 1,
           },
         },
@@ -24,9 +24,9 @@ export default class ProdDaoMongoDB {
     }
   }
 
-  async getProdById(productId) {
+  async getById(pid) {
     try {
-      const response = await ProductModel.findById(productId);
+      const response = await ProductModel.findById(pid);
       return response;
     } catch (error) {
       logger.warning ( "something unexpected happened: " + error.message);

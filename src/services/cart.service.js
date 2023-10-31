@@ -1,9 +1,9 @@
-import CartDaoMongoDB from "../persistence/daos/mongodb/cart.dao.js";
-const cartDao = new CartDaoMongoDB();
+import CartDaoMDB from "../persistence/daos/mongodb/cart.dao.js";
+const cartDao = new CartDaoMDB();
 
 import ProdDaoMongoDB from "../persistence/daos/mongodb/product.dao.js";
 const prodDao = new ProdDaoMongoDB();
-export const getAllCartServ = async () => {
+export const getAll = async () => {
   try {
     const response = await prodDao.getAllProd();
     return response;
@@ -12,9 +12,9 @@ export const getAllCartServ = async () => {
   }
 };
 
-export const getByIdCartServ = async (pid) => {
+export const getById = async (pid) => {
   try {
-    const item = await cartDao.getCartById(pid);
+    const item = await cartDao.getById(pid);
     if (!item) return false;
     else return item;
   } catch (error) {
@@ -43,7 +43,7 @@ export const updatedCartServ = async (cid, obj) => {
 
 export const addCartToUser = async (cid, idUser) => {
   try {
-    const itemCartExists = await cartDao.getCartById(cid);
+    const itemCartExists = await cartDao.getById(cid);
     const youCart = await cartDao.addCartToUser(idUser, cid)
     if (!itemCartExists) throw new Error (`Cart ${cid} not exists`);
     else return youCart;

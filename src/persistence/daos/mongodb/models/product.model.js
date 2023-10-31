@@ -30,16 +30,18 @@ const ProductSchema = new Schema({
     type: String,
     required: true,
   },
-  owner: {
-    type: Schema.Types.ObjectId,
-    ref: 'user',
-    required: true,
-    default: "admin",
-  },
+  owner: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "user",
+      required: true,
+      default: "admin",
+    },
+  ],
   inCart: {
     type: Boolean,
     default: false,
-  }
+  },
 });
 
 ProductSchema.plugin(mongoosePaginate);

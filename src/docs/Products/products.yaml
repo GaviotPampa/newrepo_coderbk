@@ -32,6 +32,10 @@ paths:
    tags:
     - Product
    summary: Update a product in the database
+   parameters:
+    - name: id
+      in: path
+      required: true
    responses:	
     "200":
      description: Uodate a product in the database for id

@@ -1,7 +1,7 @@
 import { CartModel } from "./models/cart.model.js";
 
-export default class CartDaoMongoDB {
-  async getAllCarts() {
+export default class CartDaoMDB {
+  async getAll() {
     try {
       const response = await CartModel.find({});
       return response;
@@ -10,7 +10,7 @@ export default class CartDaoMongoDB {
     }
   }
 
-  async getCartById(pid) {
+  async getById(pid) {
     try {
       const response = await CartModel.findById({pid}).populate("products");
       return response;

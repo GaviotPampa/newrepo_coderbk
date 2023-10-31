@@ -1,4 +1,4 @@
-import "dotenv/config";
+import "dotenv/config.js";
 
 export default {
      PORT: process.env.PORT || 8080,

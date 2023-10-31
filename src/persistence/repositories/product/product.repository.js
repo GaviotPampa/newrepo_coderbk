@@ -1,10 +1,10 @@
 import ProductReqDTO from "../../dtos/productDto/product.req.dto.js";
 import logger from '../../../middlewares/logger-mw.js';
-import prodDaoMongoDB from '../../daos/mongodb/product.dao.js';
+import ProdDaoMDB from '../../daos/mongodb/product.dao.js';
 
 export default class ProductRepository {
     constructor(){
-        this.dao = prodDaoMongoDB;
+        this.dao = ProdDaoMDB;
     }
 
     async getByIdDTO(id){

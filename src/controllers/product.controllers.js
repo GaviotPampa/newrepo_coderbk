@@ -32,8 +32,8 @@ export const getAllProd = async (req, res, next) => {
 
 export const getById = async (req, res, next) => {
   try {
-    const { id } = req.params;
-    const product = await service.getByIdServ(id);
+    const productId = req.params.pid;
+    const product = await service.getById(productId);
     if (!product) return httpResponse.NotFound(res, "Product not found");
     else httpResponse.Ok(res, product);
   } catch (error) {
@@ -76,10 +76,10 @@ export const createProdDTO = async (req, res) => {
   }
 };
 
-export const update = async (req, res, next) => {
+export const update= async (req, res, next) => {
   try {
     const { id } = req.params;
-    const prodUpd = await service.updatedServ(id, req.body);
+    const prodUpd = await service.updateProd(id, req.body);
     res.json(prodUpd);
   } catch (error) {
     next(error.message);

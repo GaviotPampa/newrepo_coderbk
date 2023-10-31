@@ -12,5 +12,5 @@ try {
   );
   console.log("🪁Connected to MongoDB");
 } catch (error) {
-  console.log("🚫Cannot connect to database:"+ error);
+  console.log("🚫Cannot connect to database dbConnection" +  error);
 }

@@ -1,7 +1,7 @@
 //en el servicio llamamos a la clase con su método
 //desde los servicios llamamos al dao
-import ProdDaoMongoDB from "../persistence/daos/mongodb/product.dao.js";
-const prodDao = new ProdDaoMongoDB();
+import ProdDaoMDB from "../persistence/daos/mongodb/product.dao.js";
+const prodDao = new ProdDaoMDB();
 import ProductRepository from "../persistence/repositories/product/product.repository.js";
 const productRepository = new ProductRepository();
 
@@ -17,9 +17,9 @@ export const getAllProdServ = async () => {
   }
 };
 
-export const getByIdServ = async (id) => {
+export const getById = async (id) => {
   try {
-    const item = await prodDao.getProdById(id);
+    const item = await prodDao.getById(id);
     if (!item) return false;
     else return item;
   } catch (error) {
@@ -47,7 +47,7 @@ export const createProdDTO = async (obj) => {
   }
 };
 
-export const updatedServ = async (id, obj) => {
+export const updateProd = async (id, obj) => {
   try {
     const item = await prodDao.updateProd(id, obj);
     return item;
@@ -58,7 +58,7 @@ export const updatedServ = async (id, obj) => {
 
 export const addProdToCart = async (cartId, productId, quantity) => {
   try {
-    const prodExists = await prodDao.getProdById(productId);
+    const prodExists = await prodDao.getById(productId);
     const newProdCart = await prodDao.addProdToCart(
       cartId,
       productId,
