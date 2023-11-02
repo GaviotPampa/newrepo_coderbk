@@ -5,23 +5,26 @@ import { Router } from "express";
 const router = Router();
 
 import * as controller from "../controllers/views.controllers.js";
-import {
+/* import {
   login,
   register,
   profile,
   products,
-} from "../controllers/views.controllers.js";
+} from "../controllers/views.controllers.js"; */
 
 router
-  .get("/login", (req, res) => {
+/*   .get("/login", (req, res) => {
     res.render(login);
-  })
-  .get("/register", (req, res) => {
+  }) */
+ /*  .get("/register", (req, res) => {
     res.render(register);
-  })
-  .get("/profile", (req, res) => {
+  }) */
+  .get('/login', controller.login)
+  .get('/register',controller.register)
+  .get('/profile', controller.profile)
+ /*  .get("/profile", (req, res) => {
     res.render(profile);
-  })
+  }) */
   .get("/error-login", controller.errorLogin)
   .get("/error-register", controller.errorRegister)
   .get("/user-restart", (req, res) => {

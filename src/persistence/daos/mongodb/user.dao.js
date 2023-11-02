@@ -6,7 +6,7 @@ export default class UserDao {
   async register(user) {
     try {
       const { email, password } = user;
-      const existUser = await this.getByEmail(email);
+      const existUser = await UserModel.findOne(email);
       logger.info("logger info existUser en user.dao:", existUser);
       if (!existUser) {
         if (email === "adminCoder@coder.com" && password === "adminCod3r123") {
@@ -22,8 +22,8 @@ export default class UserDao {
         });
       } else return false;
     } catch (error) {
-      logger.error("error en el register user.dao",error);
-      throw new Error(error)
+      logger.error("error en el register user.dao", error);
+      throw new Error(error);
     }
   }
 
@@ -33,13 +33,13 @@ export default class UserDao {
       const userExist = await this.getByEmail(email);
       if (userExist) {
         const passValid = isValidPassword(password, userExist);
-        console.log("PASS", passValid);
+        console.log("PASSValid in login user.dao:", passValid);
         if (!passValid) return false;
         else return userExist;
       }
       return false;
     } catch (error) {
-      logger.error(error);
+      logger.error("error en login user.dao", error);
     }
   }
 

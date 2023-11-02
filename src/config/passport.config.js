@@ -10,7 +10,7 @@ const strategyOptions = {
   passReqToCallback: true,
 };
 
-const register = async (req, email, done) => {
+const register = async (req, email,password, done) => {
   try {
     const user = await userDao.getByEmail(email);
     console.log("register passport.config", user);
@@ -27,9 +27,9 @@ const register = async (req, email, done) => {
 const login = async (req, email, password, done) => {
   try {
     const user = { email, password };
-    console.log("USER", user);
+    console.log("USER passport.comfig:", user);
     const userLogin = await userDao.login(user);
-    console.log("LOGIN", userLogin);
+    console.log("LOGIN passport.config:", userLogin);
     if (!userLogin) return done(null, false, { message: "User not found" });
     return done(null, userLogin);
   } catch (error) {

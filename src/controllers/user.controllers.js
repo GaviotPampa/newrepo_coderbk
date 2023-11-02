@@ -21,14 +21,14 @@ export const login = async (req, res) => {
       req.session.email = email;
       req.session.password = password;
       res.redirect("/api/sessions/profile");
-    } else res.redirect("/error-login");
+    } else  res.redirect("/api/sessions/error-login");
     console.log("login user.controller ok", user);
   } catch (error) {
     console.log("login failed user.controller".error);
   }
 };
 
-export const githubResponse = async (req, res, next) => {
+export const githubResponse =  (req, res, next) => {
   try {
     const { first_name, last_name, email, isGithub } = req.user;
     res.json({
@@ -47,17 +47,16 @@ export const githubResponse = async (req, res, next) => {
   }
 };
 
-export const profile = async (req, res, next) => {
+export const profile = (req, res, next) => {
   try {
-    const { first_name, /* last_name, */ email, role } = req.body;
+    const { first_name,  email, role } = req.body;
     createResponse(res, 200, {
       first_name,
-      /* last_name,  */
       email,
       role,
     });
   } catch (error) {
-    next(error.message);
+    next(error);
   }
 };
 

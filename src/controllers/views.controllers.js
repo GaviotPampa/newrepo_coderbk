@@ -1,7 +1,8 @@
-import { UserModel } from "../persistence/daos/mongodb/models/user.model.js";
-
+/* import { UserModel } from "../persistence/daos/mongodb/models/user.model.js";
+ */
 export const register= (req, res) => {
     res.render('register')
+    console.log(register);
 };
 
 export const errorRegister = (req, res) => {
@@ -16,10 +17,9 @@ export const errorLogin = (req, res) => {
     res.render('errorLogin')
 };
 
-export const profile = async(req, res) => {
-    const profile = await UserModel.findOne({email: req.body.email});
-    res.render('profile')
-    console.log("views controller profile ",profile);
+export const profile = (req, res) => {
+    const user =  req.user.toObject();
+    res.render('profile',{user})
 };
 
 export const products = (req, res) => {

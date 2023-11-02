@@ -14,3 +14,14 @@ info: 🎈Server express listening on port 8080
 [2023-10-04 20:05:27] error Error message> This message should go to the log file
 [2023-10-04 20:34:11] error Error message> This message should go to the log file
 [2023-10-04 23:17:29] error Error message> This message should go to the log file
+[2023-11-01 15:17:31] error error en el register user.dao users validation failed: role: `admin` is not a valid enum value for path `role`.
+[2023-11-01 15:23:41] error error en el register user.dao users validation failed: role: `admin` is not a valid enum value for path `role`.
+[2023-11-01 17:06:32] error error en login user.dao UserModel.getByEmail is not a function
+[2023-11-01 17:14:47] error error en login user.dao passValid is not defined
+[2023-11-01 19:27:32] error error en login user.dao passValid is not defined
+[2023-11-01 19:27:41] error error en login user.dao passValid is not defined
+[2023-11-01 19:27:46] error error en login user.dao passValid is not defined
+[2023-11-01 19:27:49] error error en login user.dao passValid is not defined
+[2023-11-01 20:06:20] error true
+[2023-11-01 20:07:45] error true
+[2023-11-02 09:09:45] error error en login user.dao passValid is not defined

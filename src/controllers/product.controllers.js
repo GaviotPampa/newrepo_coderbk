@@ -23,7 +23,7 @@ const httpResponse = new HttpResponse();
 export const getAllProd = async (req, res, next) => {
   try {
     const response = await service.getAllProdServ();
-    if (!response) return httpResponse.ServerError(res, "No response");
+    if (!response) return httpResponse.ServerError(res, "Not Found Products");
     return httpResponse.Ok(res, response);
   } catch (error) {
     next(error);
