@@ -9,11 +9,11 @@ import {HttpStatus} from "../lib/error/info.Error.js";
 
 export class HttpResponse {
 
-    Ok(res, data){
+    Ok(res, obj){
         return res.status(HttpStatus.OK).json({
             status: HttpStatus.OK,
             message: 'success',
-            data: data
+            data: obj
         });
     };
 

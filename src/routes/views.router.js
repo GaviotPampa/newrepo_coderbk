@@ -13,15 +13,15 @@ import * as controller from "../controllers/views.controllers.js";
 } from "../controllers/views.controllers.js"; */
 
 router
-/*   .get("/login", (req, res) => {
+  .get("/login", (req, res) => {
     res.render(login);
-  }) */
- /*  .get("/register", (req, res) => {
+  })
+  .get("/register", (req, res) => {
     res.render(register);
-  }) */
-  .get('/login', controller.login)
+  })
+ /*  .get('/login', controller.login)
   .get('/register',controller.register)
-  .get('/profile', controller.profile)
+  .get('/profile', controller.profile) */
  /*  .get("/profile", (req, res) => {
     res.render(profile);
   }) */

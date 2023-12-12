@@ -2,7 +2,7 @@
  */
 export const register= (req, res) => {
     res.render('register')
-    console.log(register);
+    console.log("Controller views register:" ,register);
 };
 
 export const errorRegister = (req, res) => {

@@ -2,7 +2,7 @@ export default class ProdReqDto {
   constructor(product) {
     this.product.marca = title;
 
-     this.product.importe = product.title;
+     this.product.importe = product.price;
 
      this.product.descipcion= product.description;
 

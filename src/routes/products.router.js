@@ -21,7 +21,7 @@ router
     controller.addProdToCart
   )
   /* Sólo el administrador puede crear, actualizar y eliminar productos */
-  .delete("/:id", checkRole, controller.expunge)
+  .delete("/:pid", checkRole, controller.expunge)
 
   .get("/paginate", controller.getPaginate);
   

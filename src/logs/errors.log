@@ -25,3 +25,4 @@ info: 🎈Server express listening on port 8080
 [2023-11-01 20:06:20] error true
 [2023-11-01 20:07:45] error true
 [2023-11-02 09:09:45] error error en login user.dao passValid is not defined
+[2023-11-02 20:04:05] error error en el register en user.controllers

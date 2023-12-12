@@ -43,12 +43,12 @@ export const profile = async (req, res, next) => {
   }
 };
 
-export const githubResponse = async (req, res, next) => {
+/* export const githubResponse = async (req, res, next) => {
   try {
     // console.log(req.user)
     const { first_name, last_name, email, isGithub } = req.user;
     res.json({
-      msg: "Register/Login Github OK",
+      msg: "Register/Login Github OK en service.user",
       session: req.session,
       userData: {
         first_name,
@@ -60,7 +60,7 @@ export const githubResponse = async (req, res, next) => {
   } catch (error) {
     next(error.message);
   }
-};
+}; */
 export const addCartToUser = async (userId, cartId) => {
   try {
     const cartExists = await userDao.getCartById(cartId);

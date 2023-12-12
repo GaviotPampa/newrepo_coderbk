@@ -16,7 +16,9 @@ import {
 
 router
   .post("/register", passport.authenticate("register"), register)
-  .post("/login", passport.authenticate("login"), login);
+  .post("/login", passport.authenticate("login"), login)
+  .get("/login", login)
+  .get('/register', register)
 
 router
   .get("/", (req, res) => {
@@ -51,6 +53,7 @@ router
       else res.redirect("/login");
     }); */
   .get("/logout", logout);
+
 /*ruta en el router de api/users, la cual será /api/users/premium/:uid  la cual permitirá cambiar el rol de un usuario, de “user” a “premium” y viceversa.
  */
 /* .get('/premium/:uid', (req, res) => {}) */

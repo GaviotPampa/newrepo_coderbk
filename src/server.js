@@ -11,7 +11,7 @@ import "./config/passport.config.js";
 import "./config/github.strategy.js";
 
 /* import { Server, Socket } from "socket.io";
- */ import { errorHandler } from "./middlewares/middle.js";
+ */ import { errorHandler } from "./middlewares/errorHandler.js";
 import "./persistence/daos/mongodb/db/dbConnection.js";
 
 import logger, { addLogger } from "./middlewares/logger-mw.js";
@@ -120,7 +120,7 @@ const PORT = config.PORT || 3000;
 
 //////////////***Connection: server express***/////////////
 app.listen(PORT, () => {
-logger.info('🧲 Server conectado listening on port ${PORT}');
+logger.info(`🧲 Server conectado listening on port ${PORT}`);
 });
 
 export default app;

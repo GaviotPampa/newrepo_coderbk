@@ -7,7 +7,7 @@ export const register = async (req, res) => {
     const newUser = await userDao.register(req.body);
     if (newUser) res.redirect("/api/sessions/login");
     else res.redirect("/api/sessions/error-register");
-    console.log("error en el register en user.controllers", newUser);
+    logger.error("en el register en user.controllers", newUser);
   } catch (error) {
     logger.error(error);
   }
@@ -32,7 +32,7 @@ export const githubResponse =  (req, res, next) => {
   try {
     const { first_name, last_name, email, isGithub } = req.user;
     res.json({
-      msg: "Welcome! Registration/Login GitHub Ok",
+      msg: "Welcome! Registration/Login GitHub Ok en user.controller",
      /*  session: req.session, */
       userData: {
         first_name,

@@ -1,7 +1,8 @@
 /* npm i passport-github2 */
-import config from "./config.js";
+import config from "../config/config.js";
 import { Strategy as GithubStrategy } from "passport-github2";
 import passport from "passport";
+import logger from "../middlewares/logger-mw.js";
 import UserDao from "../persistence/daos/mongodb/user.dao.js";
 const userDao = new UserDao();
 
@@ -13,7 +14,7 @@ const strategyOptions = {
 
 const registerOrLogin = async (accessToken, refreshToken, profile, done) => {
   try {
-    console.log("PROFILE github --> ", profile);
+    logger.info("PROFILE github --> ", profile);
     const email =
       profile._json.email !== null ? profile._json.email : profile._json.blog;
     const user = await userDao.getByEmail(email);
@@ -35,7 +36,7 @@ const registerOrLogin = async (accessToken, refreshToken, profile, done) => {
     return done(null, newUser);
   } catch (error) {
     done(error);
-    console.log(error);
+    logger.error("error en Github.strategy:",error);
   }
 };
 

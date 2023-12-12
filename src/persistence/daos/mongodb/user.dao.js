@@ -6,7 +6,8 @@ export default class UserDao {
   async register(user) {
     try {
       const { email, password } = user;
-      const existUser = await UserModel.findOne(email);
+     /*  const existUser = await UserModel.findOne(email); */
+      const existUser = await this.getByEmail(email);
       logger.info("logger info existUser en user.dao:", existUser);
       if (!existUser) {
         if (email === "adminCoder@coder.com" && password === "adminCod3r123") {
